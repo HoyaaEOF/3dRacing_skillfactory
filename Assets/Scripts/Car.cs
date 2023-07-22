@@ -35,6 +35,7 @@ public class Car : MonoBehaviour
 
     [SerializeField] private int selectedGearIndex;
     public float linearVelocity => chassis.linearVelocity;
+    public float NormalizeLinearVelocity => chassis.linearVelocity / maxSpeed;
     public float WheelSpeed => chassis.GetWheelSpeed();
     public float MaxSpeed => maxSpeed;
     public float EngineRPM => engineRpm;
@@ -135,6 +136,6 @@ public class Car : MonoBehaviour
         engineRpm = engineMinRpm + Mathf.Abs(chassis.GetAvarageRpm() * selectedGear * finalDriveRatio);
         engineRpm = Mathf.Clamp(engineRpm, engineMinRpm, engineMaxRpm);
 
-        engineTorque = engineTorqueCurve.Evaluate(engineRpm/engineMaxRpm) * engineMaxTorque * finalDriveRatio * Mathf.Sign(selectedGear) * gears[0];
+        engineTorque = engineTorqueCurve.Evaluate(engineRpm / engineMaxRpm) * engineMaxTorque * finalDriveRatio * Mathf.Sign(selectedGear);// * gears[0];
     }
 }
